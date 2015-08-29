@@ -2,19 +2,71 @@
 
 var gulp = require('gulp'),
 	sass = require('gulp-ruby-sass'),
+	useref = require('gulp-useref'),
+	gulpif = require('gulp-if'),
 	rename = require('gulp-rename'),
 	concat = require('gulp-concat'),
 	uglify = require('gulp-uglify'),
-	livereload = require('gulp-livereload');
+	minifyCss = require('gulp-minify-css'),
+	livereload = require('gulp-livereload'),
+	flatten = require('gulp-flatten'),
+	wiredep = require('wiredep').stream;
 
 var onError = function(err) {
 	console.log(err);
 }
 
+// watcher
+
 gulp.task('watch', function() {
 	livereload.listen();
 	gulp.watch(['app/sass/*.sass','app/sass/templates/*.sass',], ['sass']);
 	gulp.watch(['app/js/main.js'], ['scripts']);
+	gulp.watch(['bower.json'], ['bower']);
+});
+
+// deploy 
+
+gulp.task('deploy', ['copy'], function () {
+	var assets = useref.assets();
+
+	return gulp.src('app/*.html')
+		.pipe(assets)
+		.pipe(gulpif('*.js', uglify()))
+		.pipe(gulpif('*.css', minifyCss()))
+		.pipe(assets.restore())
+		.pipe(useref())
+		.pipe(gulp.dest('dist'));
+});
+
+// copy deploy
+
+gulp.task('copy', ['copyModernizr'], function() {
+	var files = ['app/*', 'app/.*'],
+		excludes = ['!app/.editorconfig',
+					'!app/.gitignore',
+					'!app/.gitattributes',
+					'!app/index.html'];
+	return gulp
+		.src(files.concat(excludes))
+		.pipe(flatten())
+		.pipe(gulp.dest('./dist'));
+});
+
+gulp.task('copyModernizr', function() {
+	return gulp
+		.src('app/vendor/*')
+		.pipe(gulp.dest('./dist/vendor'));
+});
+
+// wiredep
+
+gulp.task('bower', function () {
+	gulp.src('./app/index.html')
+		.pipe(wiredep({
+			directory: "app/components"
+		}))
+	.pipe(gulp.dest('./app'));
 });
 
 // copy boilerplate
