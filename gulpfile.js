@@ -41,7 +41,7 @@ gulp.task('deploy', ['copy'], function () {
 
 // copy deploy
 
-gulp.task('copy', ['copyModernizr'], function() {
+gulp.task('copy', ['copyModernizr', 'copyImages', 'copyFonts'], function() {
 	var files = ['app/*', 'app/.*'],
 		excludes = ['!app/.editorconfig',
 					'!app/.gitignore',
@@ -51,6 +51,18 @@ gulp.task('copy', ['copyModernizr'], function() {
 		.src(files.concat(excludes))
 		.pipe(flatten())
 		.pipe(gulp.dest('./dist'));
+});
+
+gulp.task('copyImages', function() {
+	return gulp
+		.src('app/img/*')
+		.pipe(gulp.dest('./dist/img'));
+});
+
+gulp.task('copyFonts', function() {
+	return gulp
+		.src('app/fonts/*')
+		.pipe(gulp.dest('./dist/fonts'));
 });
 
 gulp.task('copyModernizr', function() {
