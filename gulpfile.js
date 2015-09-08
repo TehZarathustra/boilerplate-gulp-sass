@@ -74,7 +74,7 @@ gulp.task('copyModernizr', function() {
 // wiredep
 
 gulp.task('bower', function () {
-	gulp.src('./app/index.html')
+	gulp.src('./app/*.html')
 		.pipe(wiredep({
 			directory: "app/components"
 		}))
