@@ -8,7 +8,6 @@ var gulp = require('gulp'),
 	concat = require('gulp-concat'),
 	uglify = require('gulp-uglify'),
 	minifyCss = require('gulp-minify-css'),
-	livereload = require('gulp-livereload'),
 	flatten = require('gulp-flatten'),
 	wiredep = require('wiredep').stream;
 
@@ -18,8 +17,7 @@ var onError = function(err) {
 
 // watcher
 
-gulp.task('watch', function() {
-	livereload.listen();
+gulp.task('default', ['bower','sass','scripts'], function() {
 	gulp.watch(['app/sass/*.sass','app/sass/templates/*.sass',], ['sass']);
 	gulp.watch(['app/js/main.js'], ['scripts']);
 	gulp.watch(['bower.json'], ['bower']);
@@ -43,10 +41,12 @@ gulp.task('deploy', ['copy'], function () {
 
 gulp.task('copy', ['copyModernizr', 'copyImages', 'copyFonts'], function() {
 	var files = ['app/*', 'app/.*'],
-		excludes = ['!app/.editorconfig',
-					'!app/.gitignore',
-					'!app/.gitattributes',
-					'!app/index.html'];
+		excludes = [
+			'!app/.editorconfig',
+			'!app/.gitignore',
+			'!app/.gitattributes',
+			'!app/index.html'
+		];
 	return gulp
 		.src(files.concat(excludes))
 		.pipe(flatten())
@@ -76,16 +76,10 @@ gulp.task('copyModernizr', function() {
 gulp.task('bower', function () {
 	gulp.src('./app/*.html')
 		.pipe(wiredep({
-			directory: "app/components"
+			directory: "app/components",
+			exclude: ["app/components/jquery"]
 		}))
 	.pipe(gulp.dest('./app'));
-});
-
-// copy boilerplate
-
-gulp.task('boilerplate', function() {
-	gulp.src("I:/EveryD front-end/templates/html5-boilerplate_v5.0.0 (ed'd)/**")
-	.pipe(gulp.dest("./"));
 });
 
 // sass
@@ -100,7 +94,6 @@ gulp.task('sass', ['templates'], function() {
 	return sass('./app/sass/main.sass', { style: 'compressed' })
 	.pipe(rename('bundle.min.css'))
 	.pipe(gulp.dest('./app/css'))
-	.pipe(livereload());
 });
 
 // scripts
@@ -117,5 +110,4 @@ gulp.task('scripts', function() {
 	.pipe(concat('main.min.js'))
 	.pipe(uglify())
 	.pipe(gulp.dest('./app/js'))
-	.pipe(livereload());
 });
