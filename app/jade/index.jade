@@ -1,0 +1,43 @@
+doctype html
+html.no-js(lang='en')
+  head
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    title
+    meta(name='description', content='')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    link(rel='apple-touch-icon', href='apple-touch-icon.png')
+    link(rel='shortcut icon', type='image/ico', href='favicon.ico')
+    // build:css css/vendor.min.css
+    // bower:css
+    link(rel='stylesheet', href='components/normalize-css/normalize.css')
+    // endbower
+    // endbuild
+    // build:css css/main.min.css
+    link(rel='stylesheet', href='css/bundle.min.css')
+    // endbuild
+    script(src='vendor/modernizr-2.8.3.min.js')
+  body
+    <!--[if lt IE 11]>
+    .browserupgrade
+      p
+        strong YOUR BROWSER IS FROM ANOTHER ERA
+      p
+        | he's witnessed asteroid that wiped out dinosaurs
+        br
+        | he's so ancient that he can barely render your page
+      p
+        | Please,
+        a(href='http://browsehappy.com/') update it
+    <![endif]-->
+    script(src='http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js')
+    script.
+      window.jQuery || document.write('<script src="vendor/jquery-1.11.2.min.js"><\\/script>')
+    // build:js js/vendor.min.js
+    // bower:js
+    // endbower
+    // endbuild
+    // build:js js/main.min.js
+    script(src='js/plugins.js')
+    script(src='js/main.js')
+    // endbuild

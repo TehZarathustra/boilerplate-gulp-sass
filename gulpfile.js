@@ -9,7 +9,8 @@ var gulp = require('gulp'),
 	uglify = require('gulp-uglify'),
 	minifyCss = require('gulp-minify-css'),
 	flatten = require('gulp-flatten'),
-	wiredep = require('wiredep').stream;
+	wiredep = require('wiredep').stream,
+	jade = require('gulp-jade');
 
 var onError = function(err) {
 	console.log(err);
@@ -17,8 +18,9 @@ var onError = function(err) {
 
 // watcher
 
-gulp.task('default', ['bower','sass','scripts'], function() {
-	gulp.watch(['app/sass/*.sass','app/sass/templates/*.sass',], ['sass']);
+gulp.task('default', ['jade','bower','sass','scripts'], function() {
+	gulp.watch(['app/sass/*.sass','app/sass/templates/*.sass'], ['sass']);
+	gulp.watch(['app/jade/*.jade'], ['jade']);
 	gulp.watch(['app/js/main.js'], ['scripts']);
 	gulp.watch(['bower.json'], ['bower']);
 });
@@ -73,13 +75,23 @@ gulp.task('copyModernizr', function() {
 
 // wiredep
 
-gulp.task('bower', function () {
+gulp.task('bower', ['jade'], function () {
 	gulp.src('./app/*.html')
 		.pipe(wiredep({
 			directory: "app/components",
 			exclude: ["app/components/jquery"]
 		}))
 	.pipe(gulp.dest('./app'));
+});
+
+// HTML
+
+gulp.task('jade', function() {
+  gulp.src('./app/jade/*.jade')
+    .pipe(jade({
+      pretty: true
+    }))
+    .pipe(gulp.dest('./app/'))
 });
 
 // sass
