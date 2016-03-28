@@ -1,4 +1,13 @@
-# Clean project-stub based on Boilerplate, Sass, Jade and Gulp
+# Clean project-stub
+
+- boilerplate html sctructure
+- Modular SASS (see `app/sass/blocks`)
+- Jade
+- Gulp
+- browser sync
+- uglifiers
+- deploy
+- wiredep bower
 
 Requires node.js, Ruby and Sass
 
