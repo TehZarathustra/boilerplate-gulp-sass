@@ -3,3 +3,4 @@ node_modules
 app/css
 app/components
 app/js/main.min.js
+*.html

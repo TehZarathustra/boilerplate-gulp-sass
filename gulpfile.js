@@ -10,20 +10,16 @@ var gulp = require('gulp'),
 	minifyCss = require('gulp-minify-css'),
 	flatten = require('gulp-flatten'),
 	wiredep = require('wiredep').stream,
-	jade = require('gulp-jade');
+	jade = require('gulp-jade'),
+	browserSync = require('browser-sync').create();
 
 var onError = function(err) {
 	console.log(err);
 }
 
-// watcher
+// default
 
-gulp.task('default', ['jade','bower','sass','scripts'], function() {
-	gulp.watch(['app/sass/*.sass','app/sass/templates/*.sass'], ['sass']);
-	gulp.watch(['app/jade/*.jade'], ['jade']);
-	gulp.watch(['app/js/main.js'], ['scripts']);
-	gulp.watch(['bower.json'], ['bower']);
-});
+gulp.task('default', ['bower', 'serve']);
 
 // deploy 
 
@@ -73,9 +69,23 @@ gulp.task('copyModernizr', function() {
 		.pipe(gulp.dest('./dist/vendor'));
 });
 
+// browser-sync
+
+gulp.task('serve', ['sass'], function() {
+
+    browserSync.init({
+        server: "./app"
+    });
+
+    gulp.watch(['app/sass/*.sass','app/sass/blocks/*.sass'], ['sass']);
+	gulp.watch(['app/jade/*.jade'], ['bower', browserSync.reload]);
+	gulp.watch(['app/js/main.js'], ['scripts', browserSync.reload]);
+});
+
+
 // wiredep
 
-gulp.task('bower', ['jade'], function () {
+gulp.task('bower', ['jade', 'sass'], function () {
 	gulp.src('./app/*.html')
 		.pipe(wiredep({
 			directory: "app/components",
@@ -96,16 +106,17 @@ gulp.task('jade', function() {
 
 // sass
 
-gulp.task('templates', function() {
-	return gulp.src('./app/sass/templates/*.sass')
+gulp.task('blocks', function() {
+	return gulp.src('./app/sass/blocks/*.sass')
 	.pipe(concat('templates.sass'))
 	.pipe(gulp.dest('./app/sass'));
 });
 
-gulp.task('sass', ['templates'], function() {
+gulp.task('sass', ['blocks'], function() {
 	return sass('./app/sass/main.sass', { style: 'compressed' })
 	.pipe(rename('bundle.min.css'))
 	.pipe(gulp.dest('./app/css'))
+	.pipe(browserSync.stream());
 });
 
 // scripts
