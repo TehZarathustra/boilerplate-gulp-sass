@@ -2,6 +2,7 @@
 
 - boilerplate html sctructure
 - Modular SASS (see `app/sass/blocks`)
+- Modular JS (browserify)
 - Jade
 - Gulp
 - browser sync
