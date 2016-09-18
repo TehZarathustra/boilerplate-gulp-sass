@@ -15,6 +15,7 @@ var gulp = require('gulp'),
 	source = require('vinyl-source-stream'),
 	browserify = require('browserify'),
 	buffer = require('vinyl-buffer'),
+	autoprefixer = require('gulp-autoprefixer'),
 	browserSync = require('browser-sync').create();
 
 var onError = function(err) {
@@ -119,6 +120,10 @@ gulp.task('blocks', function() {
 gulp.task('sass', ['blocks'], function() {
 	return sass('./app/sass/main.sass', { style: 'compressed' })
 	.pipe(rename('bundle.min.css'))
+	.pipe(autoprefixer({
+		browsers: ['last 2 versions'],
+		cascade: false
+	}))
 	.pipe(gulp.dest('./app/css'))
 	.pipe(browserSync.stream());
 });

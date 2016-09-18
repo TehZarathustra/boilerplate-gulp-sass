@@ -8,40 +8,35 @@
     font-weight: normal
     font-style: normal
 
-$mfn: 'PT Sans'
-$sfn: 'Roboto'
 
-// Grid
+// Media queries
 
-$main-w: 960px
-$inner-p: .5em
+$tablet-width: 768px
+$desktop-width: 1280px
+$phones-width: 700px
 
-.inner
-  margin-left: auto
-  margin-right: auto
-  padding-right: $inner-p
-  padding-left: $inner-p
-  width: $main-w
+=tablet-landskape
+  @media (max-width: #{$desktop-width})
+    @content
 
-.s_wrap
-  min-width: $main-w
+=tablet-portrait
+  @media (min-width: #{$tablet-width}) and (max-width: #{$desktop-width - 1px})
+    @content
 
-.left
-  float: left
+=desktop
+  @media (min-width: #{$desktop-width})
+    @content
 
-.right
-  float: right
+=phones
+  @media (max-width: #{$phones-width})
+    @content
 
-// Colors
-
-$body-c: #fff
-
-body
-  background: $body-c
+=phones-portrait
+  @media (max-width: #{$phones-width}) and (max-width: #{380px})
+    @content
 
 
-
-// Snippets
+// Helpers
 
 =bg($image, $repeat : no-repeat, $offsetX : 0, $offsetY : 0)
   background: url(../img/#{$image}.png) $offsetX $offsetY $repeat
@@ -82,15 +77,10 @@ body
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$start-color', endColorstr='$end-color', GradientType=0 )
 
 =rotate($angle)
-  -webkit-transform: rotate(#{$angle}deg)
-  -moz-transform: rotate(#{$angle}deg)
-  -o-transform: rotate(#{$angle}deg)
+  transform: rotate(#{$angle}deg)
   writing-mode: lr-tb
 
 =transition($length)
   transition: all $length ease-in-out 0s
-  -ms-transition: all $length ease-in-out 0s
-  -moz-transition: all $length ease-in-out 0s
-  -webkit-transition: all $length ease-in-out 0s
 
 
