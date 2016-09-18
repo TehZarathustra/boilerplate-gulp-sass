@@ -7,6 +7,8 @@
 - Gulp
 - browser sync
 - uglifiers
+- autoprefixer
+- media query snippets
 - deploy
 - wiredep bower
 
