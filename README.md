@@ -1,24 +1,14 @@
 # Clean project-stub
 
-- boilerplate html sctructure
-- Modular SASS (see `app/sass/blocks`)
-- Modular JS (browserify)
-- Jade
-- Gulp
-- browser sync
-- uglifiers
-- autoprefixer
-- media query snippets
-- deploy
-- wiredep bower
+- Boilerplate html sctructure
+- Components
+- Hot Module Replacement
 
-Requires node.js, Ruby and Sass
+Requires Yarn
 
 #quick start
 ```
-npm i bower -g
-git clone https://github.com/TehZarathustra/boilerplate-gulp-sass.git && cd boilerplate-gulp-sass
-npm i
-bower i
-gulp
+git clone https://github.com/TehZarathustra/boilerplate-webpack.git && cd boilerplate-webpack
+yarn install
+npm run start
 ```
