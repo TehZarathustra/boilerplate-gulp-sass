@@ -3,6 +3,7 @@
 - Boilerplate html sctructure
 - Components
 - Hot Module Replacement
+- Dev server
 - Sass
 
 Requires Yarn
