@@ -1,7 +1,9 @@
 node_modules
 .sass-cache
 .DS_Store
+dist
 app/css
 app/components
 app/js/main.min.js
+yarn.lock
 *.html

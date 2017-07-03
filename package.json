@@ -1,25 +1,25 @@
 {
-  "name": "project-name",
-  "version": "0.1.0",
-  "devDependencies": {
-    "browser-sync": "^2.11.2",
-    "browserify": "^13.1.0",
-    "gulp": "^3.9.0",
-    "gulp-autoprefixer": "^3.1.1",
-    "gulp-concat": "^2.5.2",
-    "gulp-flatten": "^0.2.0",
-    "gulp-if": "^1.2.5",
-    "gulp-jade": "^1.1.0",
-    "gulp-livereload": "^3.8.0",
-    "gulp-minify-css": "^1.2.1",
-    "gulp-rename": "^1.2.0",
-    "gulp-ruby-sass": "^1.0.1",
-    "gulp-uglify": "^1.1.0",
-    "gulp-useref": "^1.3.0",
-    "gulp-util": "^3.0.7",
-    "vinyl-buffer": "^1.0.0",
-    "vinyl-source-stream": "^1.1.0",
-    "wiredep": "^3.0.0-beta"
+  "name": "boilerplate-gulp-sass",
+  "version": "1.0.0",
+  "repository": "git@github.com:TehZarathustra/boilerplate-gulp-sass.git",
+  "author": "v-prusakov <v-prusakov@yandex-team.ru>",
+  "license": "MIT",
+  "scripts": {
+    "build": "webpack --config webpack.config.js",
+    "start": "webpack-dev-server"
   },
-  "dependencies": {}
+  "devDependencies": {
+    "css-loader": "^0.28.4",
+    "file-loader": "^0.11.2",
+    "html-webpack-plugin": "^2.29.0",
+    "node-sass": "^4.5.3",
+    "sass-loader": "^6.0.6",
+    "style-loader": "^0.18.2",
+    "webpack": "^3.0.0",
+    "webpack-dev-server": "^2.5.0"
+  },
+  "dependencies": {
+    "lodash": "^4.17.4",
+    "normalize.css": "^7.0.0"
+  }
 }
