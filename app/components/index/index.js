@@ -1,17 +1,18 @@
 import 'normalize.css';
 import './index.sass';
 
-function component() {
-	var element = document.createElement('div');
+function component(array) {
+	const element = document.createElement('div');
+	const childElement = document.createElement('div');
+
+	childElement.innerHTML = array.join(' ');
+
 	element.className = 'app';
-
-	var childElement = document.createElement('div');
-
-	childElement.innerHTML = ['Hello', 'world'].join(' ');
-
 	element.appendChild(childElement);
+
+	setInterval(() => childElement.innerHTML = arguments[0].reverse().join(' '), 2000);
 
 	return element;
 }
 
-document.body.appendChild(component());
+document.body.appendChild(component(['Hello', 'World']));
