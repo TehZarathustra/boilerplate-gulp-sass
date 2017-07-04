@@ -3,8 +3,13 @@ import './index.sass';
 
 function component() {
 	var element = document.createElement('div');
+	element.className = 'app';
 
-	element.innerHTML = ['Hello', 'world'].join(' ');
+	var childElement = document.createElement('div');
+
+	childElement.innerHTML = ['Hello', 'world'].join(' ');
+
+	element.appendChild(childElement);
 
 	return element;
 }

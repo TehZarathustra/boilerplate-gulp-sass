@@ -24,17 +24,20 @@ module.exports = {
 	module: {
 		rules: [
 			{
-				test: /\.css$/,
+				test: /\.(css|sass)$/,
 				use: [
 					'style-loader',
-					'css-loader'
-				]
-			},
-			{
-				test: /\.sass$/,
-				use: [
-					'style-loader',
-					'css-loader',
+					{loader: 'css-loader', options: { importLoaders: 1 }},
+					{loader: 'postcss-loader', options: {
+						plugins: function (loader) {
+							return [
+								require('postcss-import')({ root: loader.resourcePath }),
+								require('postcss-cssnext')(),
+								require('autoprefixer')(),
+								require('cssnano')()
+							]
+						}
+					}},
 					'sass-loader'
 				]
 			},
