@@ -1,10 +1,12 @@
 # Clean project-stub
 
-- Boilerplate html sctructure
+- Boilerplate HTML sctructure
 - Components
-- Hot Module Replacement
 - Dev server
+- Hot Module Replacement
 - Sass
+- Postcss
+- ES2015
 
 Requires Yarn
 
