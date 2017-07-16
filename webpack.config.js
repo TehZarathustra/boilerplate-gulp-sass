@@ -24,6 +24,17 @@ module.exports = {
 	module: {
 		rules: [
 			{
+				test: /\.vue$/,
+				loader: 'vue-loader',
+				options: {
+					loaders: {
+						js: 'babel-loader',
+						scss: 'css!sass'
+					},
+					postcss: [require('postcss-cssnext')()],
+				}
+			},
+			{
 				test: /\.js$/,
 				exclude: /node_modules/,
 				use: {
@@ -43,7 +54,6 @@ module.exports = {
 							return [
 								require('postcss-import')({ root: loader.resourcePath }),
 								require('postcss-cssnext')(),
-								require('autoprefixer')(),
 								require('cssnano')()
 							]
 						}
