@@ -3,23 +3,33 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 var webpack = require('webpack');
 
 module.exports = {
-	entry: './app/components/index/index.js',
+	entry: './app/index.js',
 	output: {
 		filename: 'bundle.js',
-		path: path.resolve(__dirname, 'app/dist')
+		path: path.resolve(__dirname, './dist')
+	},
+	resolve: {
+		alias: {
+			vue: 'vue/dist/vue.js'
+		}
 	},
 	plugins: [
 		new HtmlWebpackPlugin({
 			title: 'title',
-			template: './app/components/index/index.ejs',
-			filename: './index.html',
-			favicon: './app/components/index/favicon.ico'
+			template: './app/index.ejs'
 		}),
+
+		new webpack.ProvidePlugin({
+			$: "jquery",
+			jQuery: "jquery",
+			"window.jQuery": "jquery"
+		}),
+
 		new webpack.HotModuleReplacementPlugin()
 	],
 	devServer: {
 		hot: true,
-		contentBase: path.resolve(__dirname, 'app/dist'),
+		contentBase: path.resolve(__dirname, './dist'),
 	},
 	module: {
 		rules: [
@@ -53,8 +63,7 @@ module.exports = {
 						plugins: function (loader) {
 							return [
 								require('postcss-import')({ root: loader.resourcePath }),
-								require('postcss-cssnext')(),
-								require('cssnano')()
+								require('postcss-cssnext')()
 							]
 						}
 					}},
@@ -62,10 +71,12 @@ module.exports = {
 				]
 			},
 			{
-				test: /\.(png|svg|jpg|gif|ico)$/,
-				use: [
-					'file-loader'
-				]
+				test: /\.(png|svg|jpg|gif|ico|mp4)$/,
+				use: ['file-loader']
+			},
+			{
+				test: /\.(woff|woff2|eot|ttf|otf)$/,
+				use: ['file-loader']
 			}
 		]
 	}

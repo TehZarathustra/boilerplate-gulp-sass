@@ -1,18 +1,23 @@
 <template>
-	<div id="app">
+	<div class="home">
 		<img v-bind:src='logoImg'>
-		<h1>{{ msg }}</h1>
+		<h1>{{greeting}}</h1>
 		<button v-on:click='start'>does it work?</button>
 	</div>
 </template>
 
 <script>
-import logo from './outdated-browser.png'
+import logo from '../../outdated-browser.png'
 export default {
 	data () {
 		return {
-			msg: 'Hello world',
+			user: this.$store.getters.user || 'someone',
 			logoImg: logo
+		}
+	},
+	computed: {
+		greeting () {
+			return `Hello, ${this.user}!`;
 		}
 	},
 	methods: {
@@ -24,14 +29,10 @@ export default {
 </script>
 
 <style scoped lang="sass">
-	#app
+	.home
+		padding: 30px
+		background: lightblue
 		width: 800px
 		margin: 20px auto
 		text-align: center
-	button
-		padding: 10px
-		border-radius: 2px
-		background: #fff
-		cursor: pointer
-		border: none
 </style>
